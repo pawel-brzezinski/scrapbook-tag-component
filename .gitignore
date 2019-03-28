@@ -1,0 +1,19 @@
+# composer
+/composer.phar
+/composer.lock
+/vendor
+
+# IDEs
+/.idea
+*.iml
+*~
+
+# System files
+.DS_Store
+
+# Tests
+/.php_cs.cache
+/infection.json
+/phpunit.xml
+/tests/coverage
+/tests/infection
