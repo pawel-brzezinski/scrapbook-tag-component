@@ -13,5 +13,12 @@ use Psr\Cache\CacheItemPoolInterface;
  */
 interface TaggablePoolInterface extends CacheItemPoolInterface
 {
-
+    /**
+     * Invalidate tags.
+     *
+     * @param array $tags
+     *
+     * @return array
+     */
+    public function invalidateTags(array $tags): array;
 }

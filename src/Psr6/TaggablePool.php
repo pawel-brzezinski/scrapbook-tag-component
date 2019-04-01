@@ -106,6 +106,14 @@ final class TaggablePool extends Pool implements TaggablePoolInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function invalidateTags(array $tags): array
+    {
+        return $this->store()->invalidateTags($tags);
+    }
+
+    /**
      * Get store.
      *
      * @return TaggableStoreInterface

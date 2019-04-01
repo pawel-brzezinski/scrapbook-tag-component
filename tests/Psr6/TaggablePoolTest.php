@@ -8,7 +8,6 @@ use MatthiasMullie\Scrapbook\Psr6\InvalidArgumentException;
 use MatthiasMullie\Scrapbook\Psr6\Item;
 use PB\Extension\Scrapbook\Tag\Psr6\{AbstractTaggableRepository, TaggableItem, TaggableItemInterface, TaggablePool};
 use PB\Extension\Scrapbook\Tag\TaggableStoreInterface;
-use PB\Tests\Extension\Scrapbook\Tag\Library\Reflection;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -230,6 +229,23 @@ class TaggablePoolTest extends TestCase
 
         // Then
         $this->assertFalse($actual);
+    }
+
+    public function testInvalidateTags()
+    {
+        // Given
+        $tags = ['tag1', 'tag2'];
+        $expected = [true, true];
+
+        // Mock TaggableStoreInterface::invalidateTags()
+        $this->storeMock->invalidateTags($tags)->shouldBeCalledTimes(1)->willReturn($expected);
+        // End
+
+        // When
+        $actual = $this->buildPool()->invalidateTags($tags);
+
+        // Then
+        $this->assertSame($expected, $actual);
     }
 
     /**
