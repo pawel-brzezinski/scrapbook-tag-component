@@ -65,4 +65,23 @@ interface TaggableStoreInterface extends KeyValueStore
      * @return array
      */
     public function invalidateTags(array $tags): array;
+
+    /**
+     * Add key to tags.
+     *
+     * @param string $key
+     * @param array $tags
+     *
+     * @return int
+     */
+    public function addKeyToTags(string $key, array $tags): int;
+
+    /**
+     * Add keys to tags.
+     *
+     * @param array $tags       [tag => [keys]]
+     *
+     * @return int
+     */
+    public function addKeysToTags(array $tags): int;
 }

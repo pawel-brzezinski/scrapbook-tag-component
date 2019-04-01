@@ -275,4 +275,20 @@ final class TaggableStore implements TaggableStoreInterface
 
         return $this->deleteMulti($keys);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addKeyToTags(string $key, array $tags): int
+    {
+        return $this->tagsStore->addKeyToTags($key, $tags);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addKeysToTags(array $tags): int
+    {
+        return $this->tagsStore->addKeysToTags($tags);
+    }
 }

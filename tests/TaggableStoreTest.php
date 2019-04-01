@@ -853,6 +853,41 @@ class TaggableStoreTest extends TestCase
         $this->assertSame($expected, $actual);
     }
 
+    public function testAddKeyToTags()
+    {
+        // Given
+        $key = 'foo';
+        $tags = ['tag1', 'tag2'];
+        $expected = 2;
+
+        // Mock TaggableAdapterInterface::addKeyToTags() - tags store
+        $this->tsMock->addKeyToTags($key, $tags)->shouldBeCalledTimes(1)->willReturn($expected);
+        // End
+
+        // When
+        $actual = $this->buildStore()->addKeyToTags($key, $tags);
+
+        // Then
+        $this->assertSame($expected, $actual);
+    }
+
+    public function testAddKeysToTags()
+    {
+        // Given
+        $tags = ['tag1' => ['foo', 'bar'], 'tag2' => ['bar']];
+        $expected = 3;
+
+        // Mock TaggableAdapterInterface::addKeysToTags() - tags store
+        $this->tsMock->addKeysToTags($tags)->shouldBeCalledTimes(1)->willReturn($expected);
+        // End
+
+        // When
+        $actual = $this->buildStore()->addKeysToTags($tags);
+
+        // Then
+        $this->assertSame($expected, $actual);
+    }
+
     /**
      * @return TaggableStore
      */
