@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PB\Extension\Scrapbook\Tag\Psr6;
 
-use MatthiasMullie\Scrapbook\Psr6\Item;
 use Psr\Cache\CacheItemInterface;
 
 /**
@@ -14,6 +13,8 @@ use Psr\Cache\CacheItemInterface;
  */
 interface TaggableItemInterface extends CacheItemInterface
 {
+    const HASH_TAG_PREFIX = 'tag_';
+
     /**
      * Get current tags.
      *

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PB\Extension\Scrapbook\Tag\Psr6;
 
-use MatthiasMullie\Scrapbook\Psr6\Item;
+use MatthiasMullie\Scrapbook\Psr6\{Item, Repository};
 
 /**
  * Taggable PSR-6 cache item.
@@ -14,14 +14,9 @@ use MatthiasMullie\Scrapbook\Psr6\Item;
 final class TaggableItem extends Item implements TaggableItemInterface
 {
     /**
-     * @var TaggableRepositoryInterface
+     * @var Repository
      */
     protected $repository;
-
-    /**
-     * @var array
-     */
-    private $currentTags = null;
 
     /**
      * @var array
@@ -32,11 +27,12 @@ final class TaggableItem extends Item implements TaggableItemInterface
      * TaggableItem constructor.
      *
      * @param string $key
-     * @param AbstractTaggableRepository $repository
+     * @param Repository $repository
      */
-    public function __construct($key, AbstractTaggableRepository $repository)
+    public function __construct($key, Repository $repository)
     {
         parent::__construct($key, $repository);
+        $this->repository->add(self::HASH_TAG_PREFIX.$this->hash, TaggablePoolInterface::KEY_TAGS_PREFIX.$key);
     }
 
     /**
@@ -44,15 +40,13 @@ final class TaggableItem extends Item implements TaggableItemInterface
      */
     public function getCurrentTags(): array
     {
-        if (null !== $this->currentTags[$this->hash]) {
-            return $this->currentTags[$this->hash];
-        }
-
-        if (false === $this->isHit()) {
+        if (true !== $this->isHit()) {
             return [];
         }
 
-        return $this->repository->getCurrentTags($this->hash);
+        $currentTags = $this->repository->get(self::HASH_TAG_PREFIX.$this->hash);
+
+        return is_array($currentTags) ? $currentTags : [];
     }
 
     /**

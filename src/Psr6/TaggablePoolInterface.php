@@ -13,12 +13,15 @@ use Psr\Cache\CacheItemPoolInterface;
  */
 interface TaggablePoolInterface extends CacheItemPoolInterface
 {
+    const TAG_PREFIX = '[tag]';
+    const KEY_TAGS_PREFIX = '[tags]';
+
     /**
      * Invalidate tags.
      *
      * @param array $tags
      *
-     * @return array
+     * @return bool
      */
-    public function invalidateTags(array $tags): array;
+    public function invalidateTags(array $tags): bool;
 }
