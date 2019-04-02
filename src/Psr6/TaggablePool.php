@@ -242,7 +242,7 @@ final class TaggablePool extends Pool implements TaggablePoolInterface
     {
         foreach ($tags as $tag) {
             $tagKey = $this->generateTagKey($tag);
-            $value = false !== $values[$tagKey] ? $values[$tagKey] : [];
+            $value = isset($values[$tagKey]) && is_array($values[$tagKey]) ? $values[$tagKey] : [];
 
             if (!in_array($key, $value)) {
                 $value[] = $key;
